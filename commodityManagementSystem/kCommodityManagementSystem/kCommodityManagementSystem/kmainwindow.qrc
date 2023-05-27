@@ -1,0 +1,27 @@
+<RCC>
+    <qresource prefix="/KMainWindow">
+        <file>images/close.png</file>
+        <file>images/help.png</file>
+        <file>images/menu_checked.png</file>
+        <file>images/menu_default.png</file>
+        <file>images/minst.png</file>
+        <file>images/order_checked.png</file>
+        <file>images/order_default.png</file>
+        <file>images/stock_checked.png</file>
+        <file>images/stock_default.png</file>
+        <file>images/dianzichanpin1.png</file>
+        <file>images/dianzichanpin2.png</file>
+        <file>images/qita1.png</file>
+        <file>images/qita2.png</file>
+        <file>images/shipin1.png</file>
+        <file>images/shipin2.png</file>
+        <file>images/yifu1.png</file>
+        <file>images/yifu2.png</file>
+        <file>images/login.png</file>
+        <file>images/pwd.png</file>
+        <file>images/eyeClose.png</file>
+        <file>images/eyeOpen.png</file>
+        <file>images/logOff.png</file>
+        <file>images/historyOrder.png</file>
+    </qresource>
+</RCC>
