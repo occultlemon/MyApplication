@@ -1,0 +1,46 @@
+{
+    "theme": "dark",
+    "opacity": 0.95,
+    "language": "zh_CN",
+    "autostart": false,
+    "hotkeys": {
+        "toggle_window": "<alt>+<space>",
+        "new_todo": "<alt>+t",
+        "new_reminder": "<alt>+r",
+        "launcher_panel": "<alt>+l",
+        "minimize_window": "<alt>+<shift>+m",
+        "maximize_window": "<alt>+<shift>+x"
+    },
+    "pomodoro": {
+        "work_duration": 25,
+        "break_duration": 5,
+        "long_break_duration": 15,
+        "sessions_before_long_break": 4
+    },
+    "default_shortcuts": [
+        {
+            "name": "Edge 浏览器",
+            "exe_path": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+            "arguments": "",
+            "icon": "🌐"
+        },
+        {
+            "name": "记事本",
+            "exe_path": "notepad.exe",
+            "arguments": "",
+            "icon": "📝"
+        },
+        {
+            "name": "计算器",
+            "exe_path": "calc.exe",
+            "arguments": "",
+            "icon": "🔢"
+        },
+        {
+            "name": "资源管理器",
+            "exe_path": "explorer.exe",
+            "arguments": "",
+            "icon": "📁"
+        }
+    ]
+}
