@@ -68,6 +68,8 @@ class ReminderItemWidget(QWidget):
         self.db = db
         self.reload_cb = reload_cb
 
+        self.setMinimumHeight(44)
+
         layout = QHBoxLayout(self)
         layout.setContentsMargins(10, 6, 10, 6)
         layout.setSpacing(8)
@@ -79,7 +81,7 @@ class ReminderItemWidget(QWidget):
         info = QVBoxLayout()
         info.setSpacing(2)
         title = QLabel(reminder['title'])
-        title.setFont(QFont("Microsoft YaHei", 12))
+        title.setWordWrap(True)
         if not reminder['is_active']:
             title.setStyleSheet("color: #585b70; text-decoration: line-through;")
         info.addWidget(title)
@@ -176,7 +178,9 @@ class ReminderPanel(QWidget):
         for r in reminders:
             item = QListWidgetItem()
             w = ReminderItemWidget(dict(r), self.db, self.load)
-            item.setSizeHint(w.sizeHint())
+            hint = w.sizeHint()
+            hint.setHeight(max(hint.height(), 52))
+            item.setSizeHint(hint)
             self.list_widget.addItem(item)
             self.list_widget.setItemWidget(item, w)
         active = len([r for r in reminders if r['is_active']])

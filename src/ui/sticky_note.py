@@ -81,12 +81,14 @@ class StickyNoteWindow(QWidget):
         """)
 
     def _pick_color(self):
+        color_names = {
+            '#fef3c7': '暖黄', '#d1fae5': '浅绿', '#dbeafe': '天蓝',
+            '#fce7f3': '粉红', '#e0e7ff': '淡紫', '#fecaca': '浅红'
+        }
         menu = QMenu(self)
         for c in STICKY_COLORS:
-            act = menu.addAction(f"  ● ")
+            act = menu.addAction(self._color_icon(c), color_names.get(c, c))
             act.setData(c)
-            # 用样式着色
-            act.setIcon(self._color_icon(c))
         act = menu.exec_(self.cursor().pos())
         if act and act.data():
             self.bg_color = act.data()

@@ -62,12 +62,14 @@ class AlarmItemWidget(QWidget):
         self.db = db
         self.reload_cb = reload_cb
 
+        self.setMinimumHeight(52)
+
         layout = QHBoxLayout(self)
         layout.setContentsMargins(10, 8, 10, 8)
         layout.setSpacing(12)
 
         time_label = QLabel(alarm['alarm_time'])
-        time_label.setFont(QFont("Consolas", 22, QFont.Bold))
+        time_label.setFont(QFont("Consolas", 18, QFont.Bold))
         if not alarm['is_active']:
             time_label.setStyleSheet("color: #585b70;")
         layout.addWidget(time_label)
@@ -75,7 +77,7 @@ class AlarmItemWidget(QWidget):
         info = QVBoxLayout()
         info.setSpacing(2)
         label = QLabel(alarm.get('label', '') or '闹钟')
-        label.setFont(QFont("Microsoft YaHei", 11))
+        label.setWordWrap(True)
         if not alarm['is_active']:
             label.setStyleSheet("color: #585b70;")
         info.addWidget(label)
@@ -162,6 +164,8 @@ class AlarmPanel(QWidget):
         for a in alarms:
             item = QListWidgetItem()
             w = AlarmItemWidget(dict(a), self.db, self.load)
-            item.setSizeHint(w.sizeHint())
+            hint = w.sizeHint()
+            hint.setHeight(max(hint.height(), 58))
+            item.setSizeHint(hint)
             self.list_widget.addItem(item)
             self.list_widget.setItemWidget(item, w)

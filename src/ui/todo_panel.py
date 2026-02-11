@@ -85,6 +85,7 @@ class TodoItemWidget(QWidget):
         self.todo_id = todo['id']
         self.todo_data = todo
         self.db = db
+        self.setMinimumHeight(44)
 
         layout = QHBoxLayout(self)
         layout.setContentsMargins(10, 6, 10, 6)
@@ -104,7 +105,7 @@ class TodoItemWidget(QWidget):
         info_layout = QVBoxLayout()
         info_layout.setSpacing(2)
         title = QLabel(todo['title'])
-        title.setFont(QFont("Microsoft YaHei", 12))
+        title.setWordWrap(True)
         if todo['is_done']:
             title.setStyleSheet("text-decoration: line-through; color: #585b70;")
         info_layout.addWidget(title)
@@ -243,7 +244,9 @@ class TodoPanel(QWidget):
             item = QListWidgetItem()
             w = TodoItemWidget(dict(t), self.db)
             w.changed.connect(self.load)
-            item.setSizeHint(w.sizeHint())
+            hint = w.sizeHint()
+            hint.setHeight(max(hint.height(), 52))
+            item.setSizeHint(hint)
             self.list_widget.addItem(item)
             self.list_widget.setItemWidget(item, w)
         cnt = self.db.get_active_todo_count()

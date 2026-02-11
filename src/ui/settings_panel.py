@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QPushButton,
     QLabel, QComboBox, QSlider, QCheckBox,
     QGroupBox, QFormLayout, QLineEdit, QFrame,
-    QFileDialog, QMessageBox
+    QFileDialog, QMessageBox, QScrollArea
 )
 from PyQt5.QtCore import Qt, pyqtSignal
 from src.utils.autostart import is_autostart_enabled, enable_autostart, disable_autostart
@@ -20,13 +20,27 @@ class SettingsPanel(QWidget):
         self._load_values()
 
     def _init_ui(self):
-        layout = QVBoxLayout(self)
-        layout.setContentsMargins(16, 12, 16, 12)
-        layout.setSpacing(14)
+        outer_layout = QVBoxLayout(self)
+        outer_layout.setContentsMargins(0, 0, 0, 0)
+        outer_layout.setSpacing(0)
 
+        # 标题放在滚动区域外面，始终可见
+        title_bar = QWidget()
+        title_layout = QVBoxLayout(title_bar)
+        title_layout.setContentsMargins(16, 12, 16, 4)
         title = QLabel("⚙ 设置")
         title.setObjectName("panelTitle")
-        layout.addWidget(title)
+        title_layout.addWidget(title)
+        outer_layout.addWidget(title_bar)
+
+        # 可滚动区域
+        scroll = QScrollArea()
+        scroll.setWidgetResizable(True)
+        scroll.setFrameShape(QFrame.NoFrame)
+        scroll_content = QWidget()
+        layout = QVBoxLayout(scroll_content)
+        layout.setContentsMargins(16, 8, 16, 12)
+        layout.setSpacing(14)
 
         # ── 外观设置 ──
         appearance_group = QGroupBox("外观")
@@ -117,6 +131,9 @@ class SettingsPanel(QWidget):
         layout.addWidget(about_group)
 
         layout.addStretch()
+
+        scroll.setWidget(scroll_content)
+        outer_layout.addWidget(scroll, 1)
 
     def _load_values(self):
         theme = self.config.get('theme', 'dark')

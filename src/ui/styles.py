@@ -24,7 +24,7 @@ QWidget#sidebar {
     border-top-left-radius: 12px;
     border-bottom-left-radius: 12px;
 }
-QPushButton.navBtn {
+QPushButton[class="navBtn"] {
     background: transparent;
     border: none;
     padding: 10px;
@@ -33,10 +33,10 @@ QPushButton.navBtn {
     min-width: 42px;
     min-height: 42px;
 }
-QPushButton.navBtn:hover {
+QPushButton[class="navBtn"]:hover {
     background: #313244;
 }
-QPushButton.navBtn:checked, QPushButton.navBtn[active="true"] {
+QPushButton[class="navBtn"]:checked {
     background: #45475a;
     color: #89b4fa;
 }
@@ -309,6 +309,33 @@ QMenu::item {
 QMenu::item:selected {
     background: #45475a;
 }
+
+/* ── 分组框 ── */
+QGroupBox {
+    background: #252535;
+    border: 1px solid #45475a;
+    border-radius: 8px;
+    margin-top: 12px;
+    padding: 16px 10px 10px 10px;
+    font-weight: bold;
+    color: #cdd6f4;
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    left: 12px;
+    padding: 0 6px;
+    color: #89b4fa;
+}
+
+/* ── 滚动区域 ── */
+QScrollArea {
+    background: transparent;
+    border: none;
+}
+QScrollArea > QWidget > QWidget {
+    background: transparent;
+}
 """
 
 LIGHT_THEME = """
@@ -330,7 +357,7 @@ QWidget#sidebar {
     border-top-left-radius: 12px;
     border-bottom-left-radius: 12px;
 }
-QPushButton.navBtn {
+QPushButton[class="navBtn"] {
     background: transparent;
     border: none;
     padding: 10px;
@@ -339,8 +366,8 @@ QPushButton.navBtn {
     min-width: 42px;
     min-height: 42px;
 }
-QPushButton.navBtn:hover { background: #ccd0da; }
-QPushButton.navBtn:checked, QPushButton.navBtn[active="true"] {
+QPushButton[class="navBtn"]:hover { background: #ccd0da; }
+QPushButton[class="navBtn"]:checked {
     background: #bcc0cc;
     color: #1e66f5;
 }
@@ -444,6 +471,33 @@ QMenu {
 }
 QMenu::item { padding: 6px 24px; border-radius: 4px; }
 QMenu::item:selected { background: #e6e9ef; }
+
+/* ── 分组框 ── */
+QGroupBox {
+    background: #fff;
+    border: 1px solid #ccd0da;
+    border-radius: 8px;
+    margin-top: 12px;
+    padding: 16px 10px 10px 10px;
+    font-weight: bold;
+    color: #4c4f69;
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    left: 12px;
+    padding: 0 6px;
+    color: #1e66f5;
+}
+
+/* ── 滚动区域 ── */
+QScrollArea {
+    background: transparent;
+    border: none;
+}
+QScrollArea > QWidget > QWidget {
+    background: transparent;
+}
 """
 
 

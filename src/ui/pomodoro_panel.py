@@ -100,7 +100,7 @@ class PomodoroPanel(QWidget):
 
         # 圆环
         self.ring = PomodoroRing()
-        layout.addWidget(self.ring, 1, Qt.AlignCenter)
+        layout.addWidget(self.ring, 1)
 
         # 控制按钮
         btn_row = QHBoxLayout()

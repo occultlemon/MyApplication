@@ -2,7 +2,7 @@ import os
 from PyQt5.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QGridLayout, QPushButton,
     QLabel, QLineEdit, QDialog, QFormLayout, QDialogButtonBox,
-    QFileDialog, QScrollArea, QFrame
+    QFileDialog, QScrollArea, QFrame, QSizePolicy
 )
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
@@ -137,7 +137,9 @@ class LauncherPanel(QWidget):
 
     def _make_tile(self, icon_text, name):
         btn = QPushButton(f"{icon_text}\n{name}")
-        btn.setFixedSize(80, 72)
+        btn.setMinimumSize(64, 60)
+        btn.setMaximumSize(120, 96)
+        btn.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         btn.setFont(QFont("Segoe UI Emoji", 10))
         btn.setStyleSheet("""
             QPushButton {
@@ -156,6 +158,34 @@ class LauncherPanel(QWidget):
                 self.db.add_shortcut(data['name'], data['exe_path'], data['arguments'], data['icon_path'])
                 self.load()
 
+    def _calc_columns(self):
+        """根据面板可用宽度动态计算列数"""
+        available = self.width() - 48  # 减去 padding + scroll
+        tile_w = 84  # 磁贴最小宽度 + 间距
+        cols = max(2, available // tile_w)
+        return cols
+
+    def resizeEvent(self, event):
+        super().resizeEvent(event)
+        # 宽度变化时重新排列网格
+        new_cols = self._calc_columns()
+        if hasattr(self, '_last_cols') and self._last_cols == new_cols:
+            return
+        self._last_cols = new_cols
+        self._relayout_grid()
+
+    def _relayout_grid(self):
+        """重新排列网格中的组件（不重建，只移动位置）"""
+        widgets = []
+        while self.grid_layout.count():
+            item = self.grid_layout.takeAt(0)
+            w = item.widget()
+            if w:
+                widgets.append(w)
+        cols = self._calc_columns()
+        for i, w in enumerate(widgets):
+            self.grid_layout.addWidget(w, i // cols, i % cols)
+
     def load(self):
         # 清空网格
         while self.grid_layout.count():
@@ -164,7 +194,8 @@ class LauncherPanel(QWidget):
                 w.deleteLater()
 
         shortcuts = self.db.get_shortcuts()
-        cols = 4
+        cols = self._calc_columns()
+        self._last_cols = cols
         for i, s in enumerate(shortcuts):
             sid = s['id']
             icon = s['icon_path'] or '🔧'
